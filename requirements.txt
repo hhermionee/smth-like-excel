@@ -1,0 +1,16 @@
+Single-page application. На JS, HTML, CSS, webpack
+
+Настройка окружения:
+webpack (imports, exports)
+    Babel
+    SCSS
+    Eslint
+    2 mods
+        - dev
+            Dev server (перезагружать автоматически окно браузера, если произошли изменения в коде)
+            SourceMaps (исходные карты)
+            Eslint
+            Not minified JS & CSS
+        - prod
+            Minified code
+Git

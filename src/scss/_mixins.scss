@@ -1,0 +1,26 @@
+@mixin buttons($focus-color: green){
+  display: flex;
+  align-items: center;
+
+    .excel__button {
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: 0;
+      text-align: center;
+      border-radius: 2px;
+
+      & span{
+        font-size: 24px;
+      }
+
+      &:hover{
+        background-color: $button-background-color;
+      }
+
+      &:focus{
+        color: $focus-color;
+        background-color: #eee;
+      }
+    }
+  }

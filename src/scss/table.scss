@@ -9,11 +9,25 @@
   overflow: auto;
   padding-bottom: 2px;
 
+  .column-resize, .row-resize {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: $highlightning-color;
+    opacity: 0;
+    z-index: 1000;
+
+    &:hover {
+      opacity: 100%!important;
+    }
+  }
+
   .table__row{
     display: flex;
     flex-direction: row;
     min-height: 20px;
     height: $row-height;
+    position: relative;
 
     .row__info{
       display: flex;
@@ -24,6 +38,20 @@
       border: $border-default;
       border-top: none;
       background-color: $info-row-and-column-background;
+      // TODO: номер строки - фиксирование при перемотке
+      left: 0;
+      position: relative;
+
+      user-select: none;
+
+      .row-resize {
+        left: 0;
+        height: 4px;
+
+        &:hover {
+          cursor: row-resize;
+        }
+      }
     }
 
     .row__data{
@@ -41,6 +69,19 @@
         border-left: none;
         border-top: none;
         background-color: $info-row-and-column-background;
+        position: relative;
+        // TODO: название столбца - фиксирование при перемотке
+
+        user-select: none;
+
+        .column-resize {
+          top: 0;
+          width: 4px;
+
+          &:hover, &:active {
+            cursor: col-resize;
+          }
+        }
       }
 
       .data__cell{
@@ -53,6 +94,7 @@
         height: 100%;
         white-space: nowrap;
         outline: none;
+        overflow: scroll;
 
         &.selected{
           outline: 2px solid green;
@@ -62,4 +104,5 @@
       }
     }
   }
+
 }

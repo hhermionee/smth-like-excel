@@ -4,23 +4,33 @@ const CODES = {
 };
 
 function createRow(index, content = '') {
+  const resizer = index
+    ? '<div class="row-resize" data-resize="row"></div>'
+    : '';
+
   return `
-  <div class="table__row">
-    <div class="row__info">${index ? index : ''}</div>
+  <div class="table__row" data-type="resizable">
+    <div class="row__info">
+      ${index ? index : ''}
+      ${resizer}
+    </div>
       <div class="row__data">${content}</div>
   </div>
   `;
 }
 
-function toColumn(content = '') {
+function toColumn(columnName = '', index) {
   return `
-    <div class="data__column-name">${content}</div>
+    <div class="data__column-name" data-type="resizable" data-col="${index}">
+      ${columnName}
+      <div class="column-resize" data-resize="column"></div>
+    </div>
     `;
 }
 
-function toCell(content = '', selected = '') {
+function toCell(_, colNumber) {
   return `
-    <div class="data__cell ${selected}" contenteditable=""></div>
+    <div class="data__cell" contenteditable="" data-col="${colNumber}"></div>
     `;
 }
 

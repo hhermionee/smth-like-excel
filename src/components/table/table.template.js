@@ -28,10 +28,18 @@ function toColumn(columnName = '', index) {
     `;
 }
 
-function toCell(_, colNumber) {
-  return `
-    <div class="data__cell" contenteditable="" data-col="${colNumber}"></div>
+function toCell(row) {
+  return function(_, col) {
+    return `<div
+      class="data__cell"
+      contenteditable=""
+      data-col="${col}"
+      data-row="${row}"
+      data-type="cell"
+      data-id="${row}:${col}"
+    ></div>
     `;
+  };
 }
 
 function toChar(_, index) {
@@ -49,12 +57,12 @@ export function createTable(nRows = 30) {
 
   rows.push(createRow(null, cols)); // шапка
 
-  for (let i = 1; i <= nRows; i++) {
+  for (let row = 1; row <= nRows; row++) {
     const cells = new Array(nCols)
         .fill('')
-        .map(toCell)
+        .map(toCell(row))
         .join('');
-    rows.push(createRow(i, cells)); // вся остальная таблица
+    rows.push(createRow(row, cells)); // вся остальная таблица
   }
 
 

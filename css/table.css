@@ -1,0 +1,94 @@
+.excel__table {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 98px;
+  overflow: auto;
+  padding-bottom: 2px;
+}
+.excel__table .column-resize, .excel__table .row-resize {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: green;
+  opacity: 0;
+  z-index: 1000;
+}
+.excel__table .column-resize:hover, .excel__table .row-resize:hover {
+  opacity: 100% !important;
+}
+.excel__table .table__row {
+  display: flex;
+  flex-direction: row;
+  min-height: 20px;
+  height: 24px;
+  position: relative;
+}
+.excel__table .table__row .row__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #f8f9fa;
+  left: 0;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.excel__table .table__row .row__info .row-resize {
+  left: 0;
+  height: 4px;
+}
+.excel__table .table__row .row__info .row-resize:hover {
+  cursor: row-resize;
+}
+.excel__table .table__row .row__data {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.excel__table .table__row .row__data .data__column-name {
+  min-width: 40px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-top: none;
+  background-color: #f8f9fa;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.excel__table .table__row .row__data .data__column-name .column-resize {
+  top: 0;
+  width: 4px;
+}
+.excel__table .table__row .row__data .data__column-name .column-resize:hover, .excel__table .table__row .row__data .data__column-name .column-resize:active {
+  cursor: col-resize;
+}
+.excel__table .table__row .row__data .data__cell {
+  min-width: 40px;
+  width: 120px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-left: none;
+  height: 100%;
+  white-space: nowrap;
+  outline: none;
+  overflow: scroll;
+}
+.excel__table .table__row .row__data .data__cell.selected {
+  outline: 2px solid green;
+  border-radius: 2px;
+  border: none;
+}

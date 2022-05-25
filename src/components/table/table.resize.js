@@ -1,9 +1,5 @@
 import {$} from '@core/dom';
 
-export function shouldResize(event) {
-  return event.target.dataset.resize;
-}
-
 export function resizeHandler($root, event) {
   const $resizer = $(event.target);
   const $parent = $resizer.closest('[data-type="resizable"]');

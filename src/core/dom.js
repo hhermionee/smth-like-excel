@@ -13,6 +13,17 @@ class Dom {
     return this.$el.outerHTML.trim();
   }
 
+  set text(text) {
+    this.$el.textContent = text;
+  }
+
+  get text() {
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim();
+    }
+    return this.$el.textContent.trim();
+  }
+
   clear() {
     this.html('');
     return this;
@@ -56,6 +67,35 @@ class Dom {
     Object
         .keys(styles)
         .forEach((key) => this.$el.style[key] = styles[key]);
+  }
+
+  find(selector) {
+    return $(this.$el.querySelector(selector));
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+    return this;
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+    return this;
+  }
+
+  id(parse = false) {
+    if (parse) {
+      return {
+        row: +this.data.row,
+        col: +this.data.col,
+      };
+    }
+    return this.data.id;
+  }
+
+  focus() {
+    this.$el.focus();
+    return this;
   }
 }
 

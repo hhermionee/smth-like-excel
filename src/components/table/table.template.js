@@ -3,13 +3,22 @@ const CODES = {
   Z: 90,
 };
 
-function createRow(index, content = '') {
+const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 24;
+
+function createRow(index, content = '', rowState = {}) {
   const resizer = index
     ? '<div class="row-resize" data-resize="row"></div>'
     : '';
+  const height = getHeight(rowState, index);
 
   return `
-  <div class="table__row" data-type="resizable">
+  <div
+    class="table__row"
+    data-type="resizable"
+    data-row="${index}"
+    style="height:${height}" 
+  >
     <div class="row__info">
       ${index ? index : ''}
       ${resizer}
@@ -19,25 +28,35 @@ function createRow(index, content = '') {
   `;
 }
 
-function toColumn(columnName = '', index) {
+function toColumn({columnName = '', index, width}) {
   return `
-    <div class="data__column-name" data-type="resizable" data-col="${index}">
+    <div
+      class="data__column-name"
+      data-type="resizable"
+      data-col="${index}"
+      style="width: ${width}"
+    >
       ${columnName}
       <div class="column-resize" data-resize="column"></div>
     </div>
     `;
 }
 
-function toCell(row) {
+function toCell(state, row) {
   return function(_, col) {
+    const width = getWidth(state.colState, col);
+    const id = `${row}:${col}`;
+    const content = state.dataState[id] || '';
+
     return `<div
       class="data__cell"
       contenteditable=""
       data-col="${col}"
       data-row="${row}"
       data-type="cell"
-      data-id="${row}:${col}"
-    ></div>
+      data-id="${id}"
+      style="width:${width}"
+    >${content}</div>
     `;
   };
 }
@@ -46,12 +65,31 @@ function toChar(_, index) {
   return String.fromCharCode(CODES.A + index);
 }
 
-export function createTable(nRows = 30) {
+function getWidth(colState, index) {
+  return (colState[index] || DEFAULT_WIDTH) + 'px';
+}
+
+function getHeight(rowState, index) {
+  return (rowState[index] || DEFAULT_HEIGHT) + 'px';
+}
+
+function withWidthFrom(colState) {
+  return function(col, index) {
+    return {
+      columnName: col,
+      index,
+      width: getWidth(colState, index),
+    };
+  };
+}
+
+export function createTable(nRows = 30, state = {}) {
   const nCols = CODES.Z - CODES.A + 1;
   const rows = [];
   const cols = new Array(nCols)
       .fill('')
       .map(toChar)
+      .map(withWidthFrom(state.colState))
       .map(toColumn)
       .join('');
 
@@ -60,9 +98,9 @@ export function createTable(nRows = 30) {
   for (let row = 1; row <= nRows; row++) {
     const cells = new Array(nCols)
         .fill('')
-        .map(toCell(row))
+        .map(toCell(state, row))
         .join('');
-    rows.push(createRow(row, cells)); // вся остальная таблица
+    rows.push(createRow(row, cells, state.rowState)); // вся остальная таблица
   }
 
 

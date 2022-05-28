@@ -69,6 +69,13 @@ class Dom {
         .forEach((key) => this.$el.style[key] = styles[key]);
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this.$el.style[style];
+      return res;
+    }, {});
+  }
+
   find(selector) {
     return $(this.$el.querySelector(selector));
   }

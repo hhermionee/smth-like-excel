@@ -9,6 +9,7 @@
       border: 0;
       text-align: center;
       border-radius: 2px;
+      user-select: none;
 
       & span{
         font-size: 24px;
@@ -18,7 +19,7 @@
         background-color: $button-background-color;
       }
 
-      &:focus{
+      &:active, &.active{
         color: $focus-color;
         background-color: #eee;
       }

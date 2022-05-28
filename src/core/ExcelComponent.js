@@ -34,10 +34,6 @@ export class ExcelComponent extends DOMListener {
     this.store.dispatch(action);
   }
 
-  // $subscribe(fn) {
-  //   this.storeSub = this.store.subscribe(fn);
-  // }
-
   storeChanged() {}
 
   isWatching(key) {
@@ -51,6 +47,5 @@ export class ExcelComponent extends DOMListener {
   destroy() {
     this.removeDOMListeners();
     this.subsribers.forEach((sub) => sub.unsubscribe());
-    // this.storeSub.unsubscribe();
   }
 }

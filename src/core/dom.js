@@ -69,6 +69,13 @@ class Dom {
         .forEach((key) => this.$el.style[key] = styles[key]);
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this.$el.style[style];
+      return res;
+    }, {});
+  }
+
   find(selector) {
     return $(this.$el.querySelector(selector));
   }
@@ -96,6 +103,14 @@ class Dom {
   focus() {
     this.$el.focus();
     return this;
+  }
+
+  attribute(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+    return this.$el.getAttribute(name);
   }
 }
 

@@ -4,7 +4,7 @@ export class Emitter {
   }
 
   // Уведомление слушателей, если они есть
-  dispatch(eventName, ...args) {
+  emit(eventName, ...args) {
     if (!Array.isArray(this.listeners[eventName])) {
       return false;
     }
@@ -20,15 +20,11 @@ export class Emitter {
     this.listeners[eventName] = this.listeners[eventName] || [];
     this.listeners[eventName].push(fn);
 
-    return () => {
-      this.listeners[eventName] =
-          this.listeners[eventName].filter((listener) => listener != fn);
+    return {
+      unsubscribe: () => {
+        this.listeners[eventName] =
+        this.listeners[eventName].filter((listener) => listener != fn);
+      },
     };
-  }
-
-  unsubscribe(eventName, fn) {
-    this.listeners[eventName] =
-          this.listeners[eventName].filter((listener) => listener != fn);
-    return this;
   }
 }

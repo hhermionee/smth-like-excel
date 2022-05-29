@@ -12,7 +12,6 @@
   border-color: $border-hover-color;
   padding: 3px 10px;
 
-  .excel__buttons{
-    @include buttons(green);
-  }
+  
+  @include buttons(green);
 }

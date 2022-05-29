@@ -104,6 +104,14 @@ class Dom {
     this.$el.focus();
     return this;
   }
+
+  attribute(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value);
+      return this;
+    }
+    return this.$el.getAttribute(name);
+  }
 }
 
 export function $(selector) {

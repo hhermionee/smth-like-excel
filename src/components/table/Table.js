@@ -5,6 +5,7 @@ import {TableSelection} from './TableSelection';
 import {$} from '@core/dom';
 import {isCell, shouldResize, matrix, nextSelector} from './table.functions';
 import {defaultStyles} from '../../constants';
+import {parse} from '../../core/parse';
 import * as actions from '@/redux/actions';
 
 export class Table extends ExcelComponent {
@@ -33,9 +34,9 @@ export class Table extends ExcelComponent {
 
     this.selectCell($cell);
 
-    this.$on('Formula:Input', (text) => {
-      this.selection.current.text = text;
-      this.updateTextInStore(text);
+    this.$on('Formula:Input', (value) => {
+      this.selection.current.attribute('data-value', value).text = parse(value);
+      this.updateTextInStore(value);
     });
     this.$on('Formula:Done', () => {
       this.selection.current.focus();

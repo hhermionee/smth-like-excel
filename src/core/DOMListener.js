@@ -28,7 +28,6 @@ export class DOMListener {
   }
 }
 
-// input => onInput
 function getMethodName(eventName) {
   return 'on'+ capitalize(eventName);
 }

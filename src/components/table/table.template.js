@@ -102,14 +102,14 @@ export function createTable(nRows = 30, state = {}) {
       .map(toColumn)
       .join('');
 
-  rows.push(createRow(null, cols)); // шапка
+  rows.push(createRow(null, cols)); // table header
 
   for (let row = 1; row <= nRows; row++) {
     const cells = new Array(nCols)
         .fill('')
         .map(toCell(state, row))
         .join('');
-    rows.push(createRow(row, cells, state.rowState)); // вся остальная таблица
+    rows.push(createRow(row, cells, state.rowState)); // the rest of the table
   }
 
 

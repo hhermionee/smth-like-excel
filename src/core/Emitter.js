@@ -3,7 +3,6 @@ export class Emitter {
     this.listeners = {};
   }
 
-  // Уведомление слушателей, если они есть
   emit(eventName, ...args) {
     if (!Array.isArray(this.listeners[eventName])) {
       return false;
@@ -14,8 +13,7 @@ export class Emitter {
     return true;
   }
 
-  // Подписка на уведомления
-  // formula.subscribe('table:select', () => { })
+  // Example: formula.subscribe('table:select', () => { })
   subscribe(eventName, fn) {
     this.listeners[eventName] = this.listeners[eventName] || [];
     this.listeners[eventName].push(fn);
